@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
 import { DB_NAME } from './constants.js';
 import connectDB from './db/index.js';
+import express from 'express'
+
 import dotenv from 'dotenv'
+
+const app=express();
+export {app}
+
 
 dotenv.config({
     path:"./.env"
@@ -10,12 +16,18 @@ dotenv.config({
 connectDB()
 .then(()=>{
     app.listen(process.env.PORT || 4000,()=>{
-        console.log(`Server is running on ${process.env.PORT}`)
+        console.log(`Server is running on http://localhost:${process.env.PORT}`)
     })
 })
 .catch((err)=>{
     console.log("Connection Failed !!!",err)
 })
+
+// Import routes
+import userRouter from './route/user.route.js'
+
+// Routes Declaration
+app.use("/api/v1/users",userRouter)
 
 
 
