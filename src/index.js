@@ -1,21 +1,25 @@
-import mongoose from 'mongoose';
-import { DB_NAME } from './constants.js';
+// import mongoose from 'mongoose';
+// import { DB_NAME } from './constants.js';
+// import express from 'express'
+
 import connectDB from './db/index.js';
-import express from 'express'
-
 import dotenv from 'dotenv'
+import {app} from './app.js'
 
-const app=express();
-export {app}
-
-
+// const app=express();
 dotenv.config({
     path:"./.env"
 })
+// Import routes
+// import userRouter from './route/user.route.js'
+// app.use(express.json());
+
+// Routes Declaration
+// app.use("/api/v1/users",userRouter)
 
 connectDB()
 .then(()=>{
-    app.listen(process.env.PORT || 4000,()=>{
+    app.listen(process.env.PORT || 8000,()=>{
         console.log(`Server is running on http://localhost:${process.env.PORT}`)
     })
 })
@@ -23,11 +27,6 @@ connectDB()
     console.log("Connection Failed !!!",err)
 })
 
-// Import routes
-import userRouter from './route/user.route.js'
-
-// Routes Declaration
-app.use("/api/v1/users",userRouter)
 
 
 

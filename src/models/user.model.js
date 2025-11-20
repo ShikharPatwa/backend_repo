@@ -54,7 +54,7 @@ userSchema.pre("save", async function (next) {
   
     // Check if password was changed
     if (!this.isModified("password")) return next();
-  
+    const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
     next()
   })
@@ -85,4 +85,4 @@ userSchema.pre("save", async function (next) {
   }
 
 
-export const User =mongoose.model("User",userName); 
+export const User =mongoose.model("User",userSchema); 
